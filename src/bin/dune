@@ -1,0 +1,5 @@
+(executable
+ (package ppx_tailwindcss)
+ (name bin)
+ (public_name ppx_tailwindcss)
+ (libraries ppx_tailwindcss))

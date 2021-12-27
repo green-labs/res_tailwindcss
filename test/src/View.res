@@ -1,0 +1,1 @@
+let header = %twc("xl:min-w-1/5")
