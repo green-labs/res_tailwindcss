@@ -18,22 +18,44 @@ module Parser = struct
         fprintf stderr "%a: syntax error\n" print_position lexbuf;
         exit (-1)
 
-  let rec run lexbuf classnames =
+  let rec run lexbuf tailwindcss =
     match parse_with_error lexbuf with
-    | Some value -> run lexbuf (value :: classnames)
-    | None -> classnames |> List.rev
+    | Some (Class value) -> (
+        let stripped_value = String.strip value |> remove_backslash in
+        let freq = Hashtbl.find tailwindcss stripped_value in
+        match freq with
+        | Some freq' ->
+            Hashtbl.set tailwindcss ~key:stripped_value ~data:(freq' + 1);
+            run lexbuf tailwindcss
+        | None ->
+            Hashtbl.set tailwindcss ~key:stripped_value ~data:1;
+            run lexbuf tailwindcss)
+    | None -> tailwindcss
 end
 
 let loop filename classnames ~loc =
   let inx = In_channel.create filename in
   let lexbuf = Lexing.from_channel inx in
   set_filename lexbuf filename;
-  let parsed = Parser.run lexbuf [] in
-  let has_one =
-    classnames |> List.exists ~f:(has_classname parsed)
+
+  let empty_hashtbl =
+    Hashtbl.create ~growth_allowed:true ~size:1000 (module String)
   in
-  if has_one then () else Location.raise_errorf ~loc "Class name not found";
-  In_channel.close inx
+
+  let tailwindcss = Parser.run lexbuf empty_hashtbl in
+
+  let has_one = classnames |> List.for_all ~f:(Hashtbl.mem tailwindcss) in
+  if has_one then ()
+  else
+    let not_found =
+      classnames |> List.find_exn ~f:(fun c -> not (Hashtbl.mem tailwindcss c))
+    in
+    let corrected = Spelling_corrector.correction tailwindcss not_found in
+    let _ =
+      Location.raise_errorf ~loc "Class name not found: %s, do you mean %s?"
+        not_found corrected
+    in
+    In_channel.close inx
 
 let expand ~ctxt label =
   let loc = Expansion_context.Extension.extension_point_loc ctxt in
