@@ -15,7 +15,7 @@ yarn add -D @greenlabs/ppx-tailwindcss
 
 "ppx-flags": [
   ...,
-  "@greenlabs/ppx-tailwindcss/ppx"
+  ["@greenlabs/ppx-tailwindcss/ppx", "--path <path_to_tailwindcss>"]
 ],
 ```
 
