@@ -1,4 +1,4 @@
-name: res_tailwindcss build linux
+name: Build Linux
 
 on: [workflow_dispatch]
 

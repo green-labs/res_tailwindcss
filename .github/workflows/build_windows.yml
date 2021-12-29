@@ -1,4 +1,4 @@
-name: res_tailwindcss build windows
+name: Build Windows
 
 on: [workflow_dispatch]
 
