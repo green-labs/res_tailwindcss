@@ -12,25 +12,22 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest]
-        ocaml-version:
+        ocaml-compiler:
           - 4.12.1
-    env:
-      OCAML_VERSION: ${{ matrix.ocaml-version }}
-      OS: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Use OCaml ${{ matrix.ocaml-version}}
-        uses: ocaml/setup-ocaml@v1
+        uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-version: ${{ matrix.ocaml-version }}
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
       - name: Install deps
-        run: opam install dune ppxlib ocaml-lsp-server ocamlformat ocp-indent core ppx_inline_test ppx_expect ppx_deriving.show
+        run: opam install . --deps-only --with-test
 
       - name: Build
-        run: dune build
+        run: opam exec -- dune build
 
       - name: Copy built PPX file
         run: |

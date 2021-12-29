@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use OCaml ${{ matrix.ocaml-version}}
+      - name: Use OCaml ${{ matrix.ocaml-compiler}}
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
