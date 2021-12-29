@@ -19,6 +19,7 @@ depends: [
   "ppx_inline_test"
   "ppx_expect"
   "ppx_deriving"
+  "menhir"
 ]
 build: [
   ["dune" "build"]
