@@ -1,0 +1,138 @@
+name: res_tailwindcss publish prerelease
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'change npm release version'
+        required: true 
+        default: ''
+
+jobs:
+  build_linux:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: src
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        ocaml-version:
+          - 4.12.1
+    env:
+      OCAML_VERSION: ${{ matrix.ocaml-version }}
+      OS: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-version}}
+        uses: ocaml/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ matrix.ocaml-version }}
+
+      - name: Install deps
+        run: opam install dune ppxlib ocaml-lsp-server ocamlformat ocp-indent core ppx_inline_test ppx_expect ppx_deriving.show
+
+      - name: Build
+        run: dune build
+
+      - name: Copy built PPX file
+        run: |
+          mv ./_build/default/bin/bin.exe ppx.exe
+
+      - name: (only on release) Upload artifacts ${{ matrix.os }}
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ matrix.os }}
+          path: src/ppx.exe
+          if-no-files-found: error
+
+  build_macos:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: src
+    strategy:
+      matrix:
+        os: [macOS-latest]
+        ocaml-version:
+          - 4.12.1
+    env:
+      OCAML_VERSION: ${{ matrix.ocaml-version }}
+      OS: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-version}}
+        uses: ocaml/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ matrix.ocaml-version }}
+
+      - name: Install deps
+        run: opam install dune ppxlib ocaml-lsp-server ocamlformat ocp-indent core ppx_inline_test ppx_expect ppx_deriving.show
+
+      - name: Build
+        run: dune build
+
+      - name: Copy built PPX file
+        run: |
+          mv ./_build/default/bin/bin.exe ppx.exe
+
+      - name: (only on release) Upload artifacts ${{ matrix.os }}
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ matrix.os }}
+          path: src/ppx.exe
+          if-no-files-found: error
+
+  publish:
+    needs: [build_linux, build_macos]
+    name: (only on release) Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Download linux artifacts
+        if: success()
+        uses: actions/download-artifact@master
+        with:
+          name: ubuntu-latest
+          path: binaries/linux
+
+      - name: Download macOS artifacts
+        if: success()
+        uses: actions/download-artifact@master
+        with:
+          name: macOS-latest
+          path: binaries/darwin
+
+      - name: Move artifacts
+        if: success()
+        run: |
+          mkdir -p bin
+          mv binaries/linux/ppx.exe ppx-linux.exe
+          mv binaries/darwin/ppx.exe ppx-osx.exe
+
+      - name: Change npm release version
+        if: success()
+        uses: reedyuk/npm-version@1.1.1
+        with:
+          version: ${{ github.event.inputs.release_version }}
+
+      - name: Pack package
+        if: success()
+        run: npm pack
+
+      - name: Publish
+        if: success()
+        run: npm publish greenlabs-res-tailwindcss-${{ github.event.inputs.release_version }}.tgz --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

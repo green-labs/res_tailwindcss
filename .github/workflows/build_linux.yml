@@ -1,0 +1,44 @@
+name: res_tailwindcss build linux
+
+on: [workflow_dispatch]
+
+jobs:
+  build_linux:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: src
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        ocaml-version:
+          - 4.12.1
+    env:
+      OCAML_VERSION: ${{ matrix.ocaml-version }}
+      OS: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-version}}
+        uses: ocaml/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ matrix.ocaml-version }}
+
+      - name: Install deps
+        run: opam install dune ppxlib ocaml-lsp-server ocamlformat ocp-indent core ppx_inline_test ppx_expect ppx_deriving.show
+
+      - name: Build
+        run: dune build
+
+      - name: Copy built PPX file
+        run: |
+          mv ./_build/default/bin/bin.exe ppx.exe
+
+      - name: (only on release) Upload artifacts ${{ matrix.os }}
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ matrix.os }}
+          path: src/ppx.exe
+          if-no-files-found: error
