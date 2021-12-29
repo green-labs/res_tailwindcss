@@ -23,6 +23,14 @@ yarn add -D @greenlabs/res-tailwindcss
 ],
 ```
 
+## Example
+
+```rescript
+<div className=%twc("flex justify-center items-center")>
+  ...
+</div>
+```
+
 ## Development
 
 1. Create a sandbox with opam
