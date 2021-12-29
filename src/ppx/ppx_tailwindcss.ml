@@ -2,6 +2,7 @@ open Ppxlib
 open Lexing
 open Core
 open Util
+open Spelling_corrector
 
 module Parser = struct
   let print_position outx lexbuf =
@@ -20,16 +21,10 @@ module Parser = struct
 
   let rec run lexbuf tailwindcss =
     match parse_with_error lexbuf with
-    | Some (Class value) -> (
+    | Some (Class value) ->
         let stripped_value = String.strip value |> remove_backslash in
-        let freq = Hashtbl.find tailwindcss stripped_value in
-        match freq with
-        | Some freq' ->
-            Hashtbl.set tailwindcss ~key:stripped_value ~data:(freq' + 1);
-            run lexbuf tailwindcss
-        | None ->
-            Hashtbl.set tailwindcss ~key:stripped_value ~data:1;
-            run lexbuf tailwindcss)
+        make_words tailwindcss stripped_value;
+        run lexbuf tailwindcss
     | None -> tailwindcss
 end
 
@@ -38,22 +33,28 @@ let loop filename classnames ~loc =
   let lexbuf = Lexing.from_channel inx in
   set_filename lexbuf filename;
 
-  let empty_hashtbl =
-    Hashtbl.create ~growth_allowed:true ~size:1000 (module String)
+  let init_words = init_words ~size:1000 in
+  let tailwind_classnames = Parser.run lexbuf init_words in
+
+  let is_valid =
+    classnames |> List.for_all ~f:(Hashtbl.mem tailwind_classnames)
   in
-
-  let tailwindcss = Parser.run lexbuf empty_hashtbl in
-
-  let has_one = classnames |> List.for_all ~f:(Hashtbl.mem tailwindcss) in
-  if has_one then ()
+  if is_valid then ()
   else
     let not_found =
-      classnames |> List.find_exn ~f:(fun c -> not (Hashtbl.mem tailwindcss c))
+      classnames
+      |> List.find_exn ~f:(fun c -> not (Hashtbl.mem tailwind_classnames c))
     in
-    let corrected = Spelling_corrector.correction tailwindcss not_found in
+    let corrected =
+      Spelling_corrector.correction tailwind_classnames not_found
+    in
     let _ =
-      Location.raise_errorf ~loc "Class name not found: %s, do you mean %s?"
-        not_found corrected
+      (* if corrected is same to not found classname, this means we can not find the suggestion *)
+      if String.equal not_found corrected then
+        Location.raise_errorf ~loc "Class name not found: %s" not_found
+      else
+        Location.raise_errorf ~loc "Class name not found: %s, do you mean %s?"
+          not_found corrected
     in
     In_channel.close inx
 
