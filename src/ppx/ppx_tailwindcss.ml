@@ -22,7 +22,11 @@ module Parser = struct
   let rec run lexbuf tailwindcss =
     match parse_with_error lexbuf with
     | Some (Class value) ->
-        let stripped_value = String.strip value |> remove_backslash in
+        let stripped_value =
+          (* remove prefix '.'
+             eg. ".divide-y" -> "divide-y" *)
+          strip value
+        in
         make_words tailwindcss stripped_value;
         run lexbuf tailwindcss
     | None -> tailwindcss
@@ -60,18 +64,23 @@ let loop filename classnames ~loc =
 
 let expand ~ctxt label =
   let loc = Expansion_context.Extension.extension_point_loc ctxt in
-  let classnames = String.split label ~on:' ' in
-  let project_root = find_project_root @@ Sys.getcwd () in
-  match project_root with
-  | Ok project_root' ->
-      let tailwindcss_path =
-        Filename.concat project_root' !(Configs.get_tailwindcss_path ())
-      in
-      loop tailwindcss_path classnames ~loc;
-      Ast_builder.Default.estring ~loc label
-  | Error msg ->
-      fprintf stderr "%s\n" msg;
-      exit (-1)
+  let stripped_label = String.strip label in
+  (* if label is emtpy string then pass it *)
+  if String.length stripped_label = 0 then
+    Ast_builder.Default.estring ~loc label
+  else
+    let classnames = stripped_label |> String.split ~on:' ' in
+    let project_root = find_project_root @@ Sys.getcwd () in
+    match project_root with
+    | Ok project_root' ->
+        let tailwindcss_path =
+          Filename.concat project_root' !(Configs.get_tailwindcss_path ())
+        in
+        loop tailwindcss_path classnames ~loc;
+        Ast_builder.Default.estring ~loc label
+    | Error msg ->
+        fprintf stderr "%s\n" msg;
+        exit (-1)
 
 let extension =
   Extension.V3.declare "twc" Extension.Context.expression

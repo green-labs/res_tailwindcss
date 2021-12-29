@@ -1,8 +1,19 @@
 open Core
 open Css_types
 
+let pseudo_classes =
+  [ ":active"; ":focus"; ":hover"; ":checked"; ":disabled"; "::.+" ]
+
 let remove_backslash s =
   s |> String.split_on_chars ~on:[ '\\' ] |> String.concat
+
+let remove_pseudo_classes s =
+  pseudo_classes |> List.map ~f:Str.regexp
+  |> List.fold_left ~init:s ~f:(fun s' re -> Str.replace_first re "" s')
+
+let strip s =
+  String.drop_prefix (s |> String.strip |> remove_backslash) 1
+  |> remove_pseudo_classes
 
 let rec find_project_root dir =
   let bsconfig = "bsconfig.json" in

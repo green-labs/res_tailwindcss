@@ -10,7 +10,7 @@
  (name res_tailwindcss)
  (public_name res_tailwindcss)
  (kind ppx_rewriter)
- (libraries core ppxlib)
+ (libraries core ppxlib str)
  (flags
   (:standard -w -9)) ; 9 = labels not bound in record pattern
  (preprocess
