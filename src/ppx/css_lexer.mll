@@ -18,7 +18,7 @@ let white = [' ' '\t']+
 let newline = '\r' | '\n' | "\r\n"
 let dot = '.'
 let word = ['a'-'z' 'A'-'Z']
-let classname_char = ['a'-'z' 'A'-'Z' '0'-'9' '-' '\\' '.' ':' '/' '[' ']' '(' ')']+
+let classname_char = ['a'-'z' 'A'-'Z' '0'-'9' '-' '\\' '.' ':' '/' '[' ']' '(' ')' '"' '=']+
 let l_comment = '/' '*'
 let r_comment = '*' '/'
 
