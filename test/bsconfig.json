@@ -17,7 +17,7 @@
   ],
   "bs-dependencies": [],
   "bs-dev-dependencies": ["@glennsl/bs-jest"],
-  "ppx-flags": ["../ppx"],
+  "ppx-flags": [["../ppx", "--path ./css/tailwind.css"]],
   "warnings": {
     "error": true,
     "number": "-48"

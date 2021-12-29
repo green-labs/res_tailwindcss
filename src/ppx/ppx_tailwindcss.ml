@@ -64,7 +64,7 @@ let expand ~ctxt label =
   match project_root with
   | Ok project_root' ->
       let tailwindcss_path =
-        Filename.concat project_root' (Configs.tailwindcss ())
+        Filename.concat project_root' !(Configs.get_tailwindcss_path ())
       in
       loop tailwindcss_path classnames ~loc;
       Ast_builder.Default.estring ~loc label
@@ -78,4 +78,12 @@ let extension =
     expand
 
 let rule = Ppxlib.Context_free.Rule.extension extension
+
+(** Add command line arg "--path" to get a path of tailwindcss file *)
+let _ =
+  Ppxlib.Driver.add_arg "--path"
+    (Caml.Arg.String
+       (fun tailwind_path -> Configs.set_tailwindcss_path tailwind_path))
+    ~doc:""
+
 let () = Ppxlib.Driver.register_transformation ~rules:[ rule ] "ppx_tailwindcss"
