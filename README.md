@@ -36,19 +36,22 @@ yarn add -D @greenlabs/res-tailwindcss
 1. Create a sandbox with opam
 
 ```
+// working directory : src
 opam switch create tailwindcss 4.12.1
 ```
 
 2. Install dependencies
 
 ```
-opam install dune ppxlib ocaml-lsp-server ocamlformat ocp-indent core ppx_inline_test ppx_expect ppx_deriving.show
+// working directory : src
+opam install . --deps-only --with-test
 ```
 
 3. Build
 
 ```
-dune build
+// working directory : src
+opam exec -- dune build
 ```
 
 4. Test
