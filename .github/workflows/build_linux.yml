@@ -27,7 +27,7 @@ jobs:
           ocaml-version: ${{ matrix.ocaml-version }}
 
       - name: Install deps
-        run: opam install dune ppxlib ocaml-lsp-server ocamlformat ocp-indent core ppx_inline_test ppx_expect ppx_deriving.show
+        run: opam install
 
       - name: Build
         run: dune build
