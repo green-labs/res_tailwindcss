@@ -1,0 +1,26 @@
+opam-version: "2.0"
+name: "res_tailwindcss"
+version: "0.1"
+synopsis: "PPX validates the tailwindcss class names"
+description: """
+ppx_tailwindcss validates the tailwindcss class names in compile time.
+"""
+maintainer: "Greenlabs Dev <developer@greenlabs.co.kr>"
+authors: "Greenlabs Dev <developer@greenlabs.co.kr>"
+license: "MIT"
+homepage: "https://github.com/green-labs/res_tailwindcss"
+bug-reports: "https://github.com/green-labs/res_tailwindcss/issues"
+dev-repo: "git+https://github.com/green-labs/res_tailwindcss.git"
+depends: [
+  "ocaml" {>= "4.12.1"}
+  "dune"
+  "ppxlib"
+  "core"
+  "ppx_inline_test"
+  "ppx_expect"
+  "ppx_deriving"
+]
+build: [
+  ["dune" "build"]
+]
+install: ["dune" "install"]
