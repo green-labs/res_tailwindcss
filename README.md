@@ -4,7 +4,7 @@ A ReScript PPX, which validates the tailwindcss class names
 
 ## Motivation
 
-The [tailwind-ppx](https://github.com/dylanirlbeck/tailwind-ppx) is the only ppx to validate the tailwindcss class names in compile time. But, it was archived, and written by `ocaml-migrate-parsetree`. My team considered taking over the repository and maintaining it but decided to rewrite it from the scratch with `ppxlib` and `menhir`. Additionally, we improve the logic to find the invalid class name with [Spelling Corrector](https://norvig.com/spell-correct.html). algorithm.
+The [tailwind-ppx](https://github.com/dylanirlbeck/tailwind-ppx) is the only ppx to validate the tailwindcss class names in compile time. But, it was archived, and written by `ocaml-migrate-parsetree`. My team considered taking over the repository and maintaining it but decided to rewrite it from the scratch with `ppxlib` and `menhir`. Additionally, we improve the logic to find the invalid class name with [Spelling Corrector](https://norvig.com/spell-correct.html) algorithm.
 
 ## Install
 
