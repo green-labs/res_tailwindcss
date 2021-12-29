@@ -25,9 +25,11 @@ jobs:
         uses: ocaml/setup-ocaml@v1
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
+      
+      - run: eval $(opam env)
 
       - name: Install deps
-        run: opam install
+        run: opam install dune ppxlib ocaml-lsp-server ocamlformat ocp-indent core ppx_inline_test ppx_expect ppx_deriving.show
 
       - name: Build
         run: dune build
