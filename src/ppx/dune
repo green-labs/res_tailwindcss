@@ -7,8 +7,8 @@
  (inline_tests
   (deps
    "tailwind.css"))
- (name ppx_tailwindcss)
- (public_name ppx_tailwindcss)
+ (name res_tailwindcss)
+ (public_name res_tailwindcss)
  (kind ppx_rewriter)
  (libraries core ppxlib yojson)
  (flags

@@ -1,5 +1,5 @@
 {
-  "name": "ppx-tailwindcss-test",
+  "name": "res-tailwindcss-test",
   "sources": [
     {
       "dir": "__tests__",

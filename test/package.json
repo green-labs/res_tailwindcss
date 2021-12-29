@@ -1,7 +1,7 @@
 {
-  "name": "ppx-tailwindcss-test",
+  "name": "res-tailwindcss-test",
   "version": "0.0.1",
-  "description": "Test ppx_tailwindcss",
+  "description": "Test res_tailwindcss",
   "license": "MIT",
   "devDependencies": {
     "@glennsl/bs-jest": "^0.7.0",

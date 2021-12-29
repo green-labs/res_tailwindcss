@@ -1,0 +1,22 @@
+{
+  "name": "@greenlabs/res-tailwindcss",
+  "version": "0.1.0",
+  "description": "ReScript PPX validates the tailwindcss class names",
+  "license": "MIT",
+  "author": "Greenlabs Dev <developer@greenlabs.co.kr>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/green-labs/res_tailwindcss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/green-labs/res_tailwindcss/issues"
+    },
+  "keywords": [
+    "ReScript",
+    "ppx",
+    "tailwindcss"
+  ],
+  "scripts": {
+    "postinstall": "node ./postInstall.js"
+  }
+}

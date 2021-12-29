@@ -7,7 +7,7 @@ A ReScript PPX, which validates the tailwindcss class names
 ## Install
 
 ```
-yarn add -D @greenlabs/ppx-tailwindcss
+yarn add -D @greenlabs/res-tailwindcss
 ```
 
 ```
@@ -15,7 +15,7 @@ yarn add -D @greenlabs/ppx-tailwindcss
 
 "ppx-flags": [
   ...,
-  ["@greenlabs/ppx-tailwindcss/ppx", "--path <path_to_tailwindcss>"]
+  ["@greenlabs/res-tailwindcss/ppx", "--path <path_to_tailwindcss>"]
 ],
 ```
 

@@ -87,4 +87,4 @@ let _ =
        (fun tailwind_path -> Configs.set_tailwindcss_path tailwind_path))
     ~doc:""
 
-let () = Ppxlib.Driver.register_transformation ~rules:[ rule ] "ppx_tailwindcss"
+let () = Ppxlib.Driver.register_transformation ~rules:[ rule ] "res_tailwindcss"
