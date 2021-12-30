@@ -22,8 +22,7 @@ module Parser = struct
   let rec run lexbuf tailwindcss =
     match parse_with_error lexbuf with
     | Some (Class value) ->
-        let stripped_value = value in
-        make_words tailwindcss stripped_value;
+        make_words tailwindcss value;
         run lexbuf tailwindcss
     | None -> tailwindcss
 end
