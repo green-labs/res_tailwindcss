@@ -6,6 +6,16 @@ A ReScript PPX, which validates the tailwindcss class names
 
 The [tailwind-ppx](https://github.com/dylanirlbeck/tailwind-ppx) is the only ppx to validate the tailwindcss class names in compile time. But, it was archived, and written by `ocaml-migrate-parsetree`. My team considered taking over the repository and maintaining it but decided to rewrite it from the scratch with `ppxlib` and `menhir`. Additionally, we improve the logic to find the invalid class name with [Spelling Corrector](https://norvig.com/spell-correct.html) algorithm.
 
+Plus, the arbitrary values in the JIT mode of Tailwindcss is supported!
+
+```html
+<!-- arbitrary value examples -->
+<div className=%twc("p-[75px]")> ... </div>
+<div className=%twc("p-[calc(75px)]")> ... </div>
+<div className=%twc("bg-[#1da1f1]")> ... </div>
+<div className=%twc("grid-cols-[1fr,700px,2fr]")> ... </div>
+```
+
 ## Install
 
 ```
