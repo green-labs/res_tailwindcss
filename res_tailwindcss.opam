@@ -13,13 +13,13 @@ bug-reports: "https://github.com/green-labs/res_tailwindcss/issues"
 dev-repo: "git+https://github.com/green-labs/res_tailwindcss.git"
 depends: [
   "ocaml" {>= "4.12.1"}
-  "dune" { >= "2.7"}
+  "dune" { >= "2.8"}
   "ppxlib"
   "core"
   "ppx_inline_test"
   "ppx_expect"
   "ppx_deriving"
-  "menhir"
+  "menhir" { >= "20211230"}
 ]
 build: [
   ["dune" "build" "-p" name "-j" jobs]
