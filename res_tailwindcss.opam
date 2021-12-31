@@ -13,7 +13,7 @@ bug-reports: "https://github.com/green-labs/res_tailwindcss/issues"
 dev-repo: "git+https://github.com/green-labs/res_tailwindcss.git"
 depends: [
   "ocaml" {>= "4.12.1"}
-  "dune"
+  "dune" { >= "2.7"}
   "ppxlib"
   "core"
   "ppx_inline_test"
