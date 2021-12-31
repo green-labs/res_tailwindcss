@@ -6,7 +6,7 @@ var View = require("../src/View.js");
 
 Jest.describe("", (function (param) {
         return Jest.test("", (function (param) {
-                      return Jest.Expect.toEqual("xl:min-w-1/5", Jest.Expect.expect(View.header));
+                      return Jest.Expect.toEqual("py-1.5", Jest.Expect.expect(View.header));
                     }));
       }));
 

@@ -24,4 +24,3 @@ depends: [
 build: [
   ["dune" "build" "-p" name "-j" jobs]
 ]
-install: ["dune" "install"]

@@ -4,6 +4,6 @@ open Expect
 describe("", _ => {
   test("", _ => {
     let header = View.header
-    expect(header) |> toEqual("xl:min-w-1/5")
+    expect(header) |> toEqual("py-1.5")
   })
 })

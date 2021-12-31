@@ -3,3 +3,4 @@ lib
 node_modules
 _build
 .bsb.lock
+tailwind.css

@@ -12,9 +12,6 @@ jobs:
   build_linux:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: src
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -43,15 +40,12 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: ${{ matrix.os }}
-          path: src/ppx.exe
+          path: ppx.exe
           if-no-files-found: error
 
   build_macos:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: src
     strategy:
       matrix:
         os: [macOS-latest]
@@ -80,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: ${{ matrix.os }}
-          path: src/ppx.exe
+          path: ppx.exe
           if-no-files-found: error
 
   publish:
