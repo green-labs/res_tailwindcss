@@ -46,28 +46,25 @@ yarn add -D @greenlabs/res-tailwindcss
 1. Create a sandbox with opam
 
 ```
-// working directory : src
 opam switch create tailwindcss 4.12.1
 ```
 
 2. Install dependencies
 
 ```
-// working directory : src
 opam install . --deps-only --with-test
 ```
 
 3. Build
 
 ```
-// working directory : src
 opam exec -- dune build
 ```
 
 4. Test
 
 ```
-cd test
+cd rescript
 
 (install dependencies)
 yarn
