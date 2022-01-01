@@ -4,3 +4,4 @@ node_modules
 _build
 .bsb.lock
 tailwind.css
+res_tailwindcss.install
