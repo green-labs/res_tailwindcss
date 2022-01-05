@@ -10,8 +10,14 @@ var header3 = "xl:min-w-1/5";
 
 var header4 = "focus:outline-none";
 
+var header5 = "w-[100%]";
+
+var header6 = "w-[calc(100%-40px)]";
+
 exports.header = header;
 exports.header2 = header2;
 exports.header3 = header3;
 exports.header4 = header4;
+exports.header5 = header5;
+exports.header6 = header6;
 /* No side effect */
