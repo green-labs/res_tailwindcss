@@ -32,6 +32,7 @@ let tailwindcss_dot = "\\."
 let tailwindcss_frac = "\\/"
 let tailwindcss_l_paren = "\\("
 let tailwindcss_r_paren = "\\)"
+let percentage = "\\%"
 
 let pseudo_class = ':'
 let pseudo_element = "::"
@@ -72,6 +73,7 @@ else read lexbuf }
 | tailwindcss_frac { Buffer.add_string buf "/"; read_class buf lexbuf }
 | tailwindcss_l_paren { Buffer.add_string buf "("; read_class buf lexbuf }
 | tailwindcss_r_paren { Buffer.add_string buf ")"; read_class buf lexbuf }
+| percentage { Buffer.add_string buf "%"; read_class buf lexbuf }
 | _ { Buffer.add_string buf (Lexing.lexeme lexbuf); read_class buf lexbuf }
 | eof { EOF }
 
