@@ -15,6 +15,7 @@ Plus, the arbitrary values in the JIT mode of Tailwindcss are supported!
 <div className=%twc("p-[calc(100%-40px)]")> ... </div>
 <div className=%twc("bg-[#1da1f1]")> ... </div>
 <div className=%twc("grid-cols-[1fr,700px,2fr]")> ... </div>
+<div className=%twc("translate-x-[calc(-50%+27px)]")> ... </div>
 ```
 
 ## Install
