@@ -1,6 +1,6 @@
 {
   "name": "@greenlabs/res-tailwindcss",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "ReScript PPX validates the tailwindcss class names",
   "license": "MIT",
   "author": "Greenlabs Dev <developer@greenlabs.co.kr>",
