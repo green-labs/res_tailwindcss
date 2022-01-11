@@ -28,7 +28,6 @@ let r_arbitrary_value = "\\]"
 let arbitrary_value_comma = "\\2c "
 let arbitrary_value_sharp = "\\#"
 let arbitrary_value_important = "\\!"
-
 let tailwindcss_pseudo_class = "\\:"
 let tailwindcss_dot = "\\."
 let tailwindcss_frac = "\\/"
