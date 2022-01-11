@@ -1514,6 +1514,10 @@ video {
   transform: var(--tw-transform);
 }
 
+.\!pb-\[270px\] {
+  padding-bottom: 270px !important;
+}
+
 .translate-x-2\/4,
 .translate-x-\[50\%\] {
   --tw-translate-x: 50%;
