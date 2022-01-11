@@ -64,7 +64,7 @@ let expand ~ctxt label =
   if String.length stripped_label = 0 then
     Ast_builder.Default.estring ~loc label
   else
-    let classnames = stripped_label |> Str.global_replace (Str.regexp "[ \n\r\x0c\t]+") " " |> String.split ~on:' ' in
+    let classnames = stripped_label |> Str.split (Str.regexp "[ \t]+") in
     let project_root = find_project_root @@ Sys.getcwd () in
     match project_root with
     | Ok project_root' ->
