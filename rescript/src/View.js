@@ -16,6 +16,8 @@ var header6 = "w-[calc(100%-40px)]";
 
 var header7 = "translate-x-[calc(-50%+27px)]";
 
+var header9 = "translate-x-2/4";
+
 exports.header = header;
 exports.header2 = header2;
 exports.header3 = header3;
@@ -23,4 +25,5 @@ exports.header4 = header4;
 exports.header5 = header5;
 exports.header6 = header6;
 exports.header7 = header7;
+exports.header9 = header9;
 /* No side effect */

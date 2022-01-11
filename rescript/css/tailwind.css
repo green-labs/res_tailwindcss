@@ -1513,3 +1513,9 @@ video {
   --tw-translate-x: calc(-50% + 27px);
   transform: var(--tw-transform);
 }
+
+.translate-x-2\/4,
+.translate-x-\[50\%\] {
+  --tw-translate-x: 50%;
+  transform: var(--tw-transform);
+}
