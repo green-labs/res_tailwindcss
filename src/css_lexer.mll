@@ -39,7 +39,8 @@ let tailwindcss_minus = "\\-"
 let pseudo_class = ':'
 let pseudo_element = "::"
 let l_attribute_selector = '['
-let end_of_class = pseudo_class | pseudo_element | l_attribute_selector | dot | newline | '>' | '{'
+let comma = ','
+let end_of_class = comma | pseudo_class | pseudo_element | l_attribute_selector | dot | newline | '>' | '{'
 
 rule read =
 parse
