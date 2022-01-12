@@ -34,5 +34,5 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: ${{ matrix.os }}
-          path: src/ppx.exe
+          path: ppx.exe
           if-no-files-found: error
