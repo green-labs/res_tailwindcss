@@ -1,4 +1,7 @@
-open Ppxlib
+module Expansion_context = Ppxlib.Expansion_context
+module Ast_builder = Ppxlib.Ast_builder
+module Ast_pattern = Ppxlib.Ast_pattern
+module Extension = Ppxlib.Extension
 open Lexing
 open Core
 open Util
@@ -11,11 +14,11 @@ module Parser = struct
       (pos.pos_cnum - pos.pos_bol + 1)
 
   let parse_with_error lexbuf =
-    try Css_parser.prog Css_lexer.read lexbuf with
-    | Css_lexer.SyntaxError msg ->
+    try Parser.prog Lexer.read lexbuf with
+    | Lexer.SyntaxError msg ->
         fprintf stderr "%a: %s\n" print_position lexbuf msg;
         exit (-1)
-    | Css_parser.Error ->
+    | Parser.Error ->
         fprintf stderr "%a: syntax error\n" print_position lexbuf;
         exit (-1)
 
