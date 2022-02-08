@@ -1,9 +1,9 @@
-%{ open Css_types %}
+%{ open Types %}
 
 %token <string> CLASS
 %token EOF
 
-%start <Css_types.selector option> prog
+%start <Types.selector option> prog
 %%
 
 prog:

@@ -1,7 +1,7 @@
 (menhir
- (modules css_parser))
+ (modules parser))
 
-(ocamllex css_lexer)
+(ocamllex lexer)
 
 (library
  (inline_tests

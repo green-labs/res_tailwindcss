@@ -1,7 +1,7 @@
 {
   open Core
   open Lexing
-  open Css_parser
+  open Parser
 
   exception SyntaxError of string
 
