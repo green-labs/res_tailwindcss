@@ -41,7 +41,7 @@ let loop filename classnames ~loc =
   let is_valid =
     classnames |> List.for_all ~f:(Hashtbl.mem tailwind_classnames)
   in
-  if is_valid then ()
+  if is_valid then In_channel.close inx
   else
     let not_found =
       classnames
