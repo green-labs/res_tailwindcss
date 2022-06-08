@@ -1523,3 +1523,8 @@ video {
   --tw-translate-x: 50%;
   transform: var(--tw-transform);
 }
+
+.before\:content-\[\'\'\]::before {
+  --tw-content: "";
+  content: var(--tw-content);
+}

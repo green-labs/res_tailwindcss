@@ -20,6 +20,8 @@ var header8 = "!pb-[270px]";
 
 var header9 = "translate-x-2/4";
 
+var header10 = "before:content-['']";
+
 exports.header = header;
 exports.header2 = header2;
 exports.header3 = header3;
@@ -29,4 +31,5 @@ exports.header6 = header6;
 exports.header7 = header7;
 exports.header8 = header8;
 exports.header9 = header9;
+exports.header10 = header10;
 /* No side effect */
