@@ -39,7 +39,7 @@ yarn add -D @greenlabs/res-tailwindcss
 ## Example
 
 ```rescript
-<div className=%twc("flex justify-center items-center")>
+<div className=%twc("flex justify-center items-center after:content-['Hello_World']")>
   ...
 </div>
 ```
