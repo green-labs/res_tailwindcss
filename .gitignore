@@ -5,3 +5,4 @@ _build
 .bsb.lock
 res_tailwindcss.install
 _esy
+_opam
