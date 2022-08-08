@@ -22,6 +22,8 @@ var header9 = "translate-x-2/4";
 
 var header10 = "before:content-['']";
 
+var header11 = "peer-checked:[&>svg]:rotate-180";
+
 exports.header = header;
 exports.header2 = header2;
 exports.header3 = header3;
@@ -32,4 +34,5 @@ exports.header7 = header7;
 exports.header8 = header8;
 exports.header9 = header9;
 exports.header10 = header10;
+exports.header11 = header11;
 /* No side effect */
