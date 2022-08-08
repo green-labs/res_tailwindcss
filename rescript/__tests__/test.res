@@ -11,4 +11,9 @@ describe("", _ => {
     let header10 = View.header10
     expect(header10) |> toEqual("before:content-['']")
   })
+
+  test("self & children selector", _ => {
+    let header11 = View.header11
+    expect(header11) |> toEqual("peer-checked:[&>svg]:rotate-180")
+  })
 })

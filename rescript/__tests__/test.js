@@ -8,8 +8,11 @@ Jest.describe("", (function (param) {
         Jest.test("", (function (param) {
                 return Jest.Expect.toEqual("py-1.5", Jest.Expect.expect(View.header));
               }));
-        return Jest.test("content", (function (param) {
-                      return Jest.Expect.toEqual("before:content-['']", Jest.Expect.expect(View.header10));
+        Jest.test("content", (function (param) {
+                return Jest.Expect.toEqual("before:content-['']", Jest.Expect.expect(View.header10));
+              }));
+        return Jest.test("self & children selector", (function (param) {
+                      return Jest.Expect.toEqual("peer-checked:[&>svg]:rotate-180", Jest.Expect.expect(View.header11));
                     }));
       }));
 

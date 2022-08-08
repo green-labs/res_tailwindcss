@@ -18,6 +18,7 @@ Plus, the arbitrary values in the JIT mode of Tailwindcss are supported!
 <div className=%twc("translate-x-[calc(-50%+27px)]")> ... </div>
 <div className=%twc("!pb-[270px]")> ... </div>
 <div className=%twc("after:content-['Hello_World']")> ... </div>
+<div className=%twc("peer-checked:[&>svg]:rotate-180")> ... </div>
 ```
 
 ## Install
@@ -40,8 +41,10 @@ yarn add -D @greenlabs/res-tailwindcss
 ## Example
 
 ```rescript
-<div className=%twc("flex justify-center items-center after:content-['Hello_World']")>
+<input type_="checkbox" className=%twc("peer") />
+<div className=%twc("flex justify-center items-center after:content-['Hello_World'] peer-checked:[&>svg]:rotate-180")>
   ...
+  <svg />
 </div>
 ```
 
