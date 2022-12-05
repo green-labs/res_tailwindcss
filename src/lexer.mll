@@ -1,5 +1,5 @@
 {
-  open Core
+  open Base
   open Lexing
   open Parser
 
