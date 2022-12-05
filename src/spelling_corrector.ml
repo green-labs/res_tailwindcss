@@ -1,7 +1,7 @@
 (* Spelling Corrector
    https://norvig.com/spell-correct.html *)
-open Core
-module StringSet = Set.Make (String)
+open Base
+module StringSet = Stdlib.Set.Make (String)
 
 let letters =
   (* append digits and slash(/) in order to correct more accurately *)
@@ -72,8 +72,8 @@ let edit1 word =
   let inserted = inserts letters splited in
   let candidates = deleted @ transposed @ replaced @ inserted in
   List.fold_left candidates ~init:StringSet.empty ~f:(fun set s ->
-      StringSet.add set s)
-  |> StringSet.to_list
+      StringSet.add s set)
+  |> StringSet.elements
 
 let edit2 word =
   let edit1s = edit1 word in
@@ -83,8 +83,8 @@ let edit2 word =
 let known words ws =
   ws
   |> List.filter ~f:(fun w -> Hashtbl.mem words w)
-  |> List.fold_left ~init:StringSet.empty ~f:(fun set s -> StringSet.add set s)
-  |> StringSet.to_list
+  |> List.fold_left ~init:StringSet.empty ~f:(fun set s -> StringSet.add s set)
+  |> StringSet.elements
 
 let candidates words word =
   let known1 = known words [ word ] in

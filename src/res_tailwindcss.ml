@@ -3,24 +3,26 @@ module Ast_builder = Ppxlib.Ast_builder
 module Ast_pattern = Ppxlib.Ast_pattern
 module Extension = Ppxlib.Extension
 open Lexing
-open Core
+open Base
 open Util
 open Spelling_corrector
 
 module Parser = struct
   let print_position outx lexbuf =
     let pos = lexbuf.lex_curr_p in
-    fprintf outx "%s:%d:%d" pos.pos_fname pos.pos_lnum
+    Caml.Format.fprintf outx "%s:%d:%d" pos.pos_fname pos.pos_lnum
       (pos.pos_cnum - pos.pos_bol + 1)
 
   let parse_with_error lexbuf =
     try Parser.prog Lexer.read lexbuf with
     | Lexer.SyntaxError msg ->
-        fprintf stderr "%a: %s\n" print_position lexbuf msg;
-        exit (-1)
+        Caml.Format.fprintf Caml.Format.err_formatter "%a: %s\n" print_position
+          lexbuf msg;
+        Caml.exit (-1)
     | Parser.Error ->
-        fprintf stderr "%a: syntax error\n" print_position lexbuf;
-        exit (-1)
+        Caml.Format.fprintf Caml.Format.err_formatter "%a: syntax error\n"
+          print_position lexbuf;
+        Caml.exit (-1)
 
   let rec run lexbuf tailwindcss =
     match parse_with_error lexbuf with
@@ -31,7 +33,7 @@ module Parser = struct
 end
 
 let loop filename classnames ~loc =
-  let inx = In_channel.create filename in
+  let inx = Stdio.In_channel.create filename in
   let lexbuf = Lexing.from_channel inx in
   set_filename lexbuf filename;
 
@@ -41,7 +43,7 @@ let loop filename classnames ~loc =
   let is_valid =
     classnames |> List.for_all ~f:(Hashtbl.mem tailwind_classnames)
   in
-  if is_valid then In_channel.close inx
+  if is_valid then Stdio.In_channel.close inx
   else
     let not_found =
       classnames
@@ -58,7 +60,7 @@ let loop filename classnames ~loc =
         Location.raise_errorf ~loc "Class name not found: %s, do you mean %s?"
           not_found corrected
     in
-    In_channel.close inx
+    Stdio.In_channel.close inx
 
 let expand ~ctxt label =
   let loc = Expansion_context.Extension.extension_point_loc ctxt in
@@ -68,17 +70,18 @@ let expand ~ctxt label =
     Ast_builder.Default.estring ~loc label
   else
     let classnames = stripped_label |> Str.split (Str.regexp "[ \t]+") in
-    let project_root = find_project_root @@ Sys.getcwd () in
+    let project_root = find_project_root @@ Stdlib.Sys.getcwd () in
     match project_root with
     | Ok project_root' ->
         let tailwindcss_path =
-          Filename.concat project_root' !(Configs.get_tailwindcss_path ())
+          Stdlib.Filename.concat project_root'
+            !(Configs.get_tailwindcss_path ())
         in
         loop tailwindcss_path classnames ~loc;
         Ast_builder.Default.estring ~loc label
     | Error msg ->
-        fprintf stderr "%s\n" msg;
-        exit (-1)
+        Stdlib.Format.fprintf Stdlib.Format.err_formatter "%s\n" msg;
+        Caml.exit (-1)
 
 let extension =
   Extension.V3.declare "twc" Extension.Context.expression
