@@ -5,13 +5,13 @@
 
 (library
  (inline_tests
-  (deps
-   "tailwind.css"))
+  (deps "tailwind.css"))
  (name res_tailwindcss)
  (public_name res_tailwindcss)
  (kind ppx_rewriter)
- (libraries core ppxlib str)
+ (libraries base ppxlib str)
  (flags
-  (:standard -w -9)) ; 9 = labels not bound in record pattern
+  (:standard -w -9))
+ ; 9 = labels not bound in record pattern
  (preprocess
   (pps ppxlib.metaquot ppx_inline_test ppx_expect ppx_deriving.show)))
