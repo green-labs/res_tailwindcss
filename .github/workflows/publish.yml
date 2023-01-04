@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04]
+        os: [ubuntu-latest]
         ocaml-compiler:
           - 4.12.1
 
@@ -108,7 +108,7 @@ jobs:
   publish:
     needs: [build_linux, build_macos, build_windows]
     name: (only on release) Publish
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -120,7 +120,7 @@ jobs:
         if: success()
         uses: actions/download-artifact@master
         with:
-          name: ubuntu-18.04
+          name: ubuntu-latest
           path: binaries/linux
 
       - name: Download macOS artifacts
