@@ -16,4 +16,9 @@ describe("", _ => {
     let header11 = View.header11
     expect(header11) |> toEqual("peer-checked:[&>svg]:rotate-180")
   })
+
+  test("descendant combinator", _ => {
+    let header12 = View.header12
+    expect(header12) |> toEqual("[&_a]:tw-mt-4")
+  })
 })

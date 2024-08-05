@@ -44,7 +44,7 @@ let pseudo_class = ':'
 let pseudo_element = "::"
 let l_attribute_selector = '['
 let comma = ','
-let end_of_class = comma | pseudo_class | pseudo_element | l_attribute_selector | dot | newline | '>' | '{'
+let end_of_class = comma | pseudo_class | pseudo_element | l_attribute_selector | dot | newline | '>' | '{' | white
 
 rule read =
 parse

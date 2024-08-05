@@ -11,8 +11,11 @@ Jest.describe("", (function (param) {
         Jest.test("content", (function (param) {
                 return Jest.Expect.toEqual("before:content-['']", Jest.Expect.expect(View.header10));
               }));
-        return Jest.test("self & children selector", (function (param) {
-                      return Jest.Expect.toEqual("peer-checked:[&>svg]:rotate-180", Jest.Expect.expect(View.header11));
+        Jest.test("self & children selector", (function (param) {
+                return Jest.Expect.toEqual("peer-checked:[&>svg]:rotate-180", Jest.Expect.expect(View.header11));
+              }));
+        return Jest.test("descendant combinator", (function (param) {
+                      return Jest.Expect.toEqual("[&_a]:tw-mt-4", Jest.Expect.expect(View.header12));
                     }));
       }));
 
