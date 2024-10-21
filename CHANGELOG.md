@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# 0.1.14
+
+- Fix the project root finder in projects that use `rescript.json`
+
 # 0.1.13
 
 - Support the descendant combinator
