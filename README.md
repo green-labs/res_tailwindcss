@@ -53,7 +53,7 @@ yarn add -D @greenlabs/res-tailwindcss
 1. Create a sandbox with opam
 
 ```
-opam switch create tailwindcss 4.12.1
+opam switch create tailwindcss 4.14.0
 ```
 
 2. Install dependencies
