@@ -1,6 +1,8 @@
 let rec find_project_root dir =
   let bsconfig = "bsconfig.json" in
-  match Filename.concat dir bsconfig |> Sys.file_exists with
+  let rescript = "rescript.json" in
+  match (Filename.concat dir bsconfig |> Sys.file_exists) ||
+        (Filename.concat dir rescript |> Sys.file_exists) with
   | true -> Ok dir
   | false ->
       let parent = dir |> Filename.dirname in
